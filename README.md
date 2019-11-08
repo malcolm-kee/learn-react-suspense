@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react-suspense
+
+This is a sample application using React Suspense with REST API.
+
+I try to reduce the concept involved (no code lazy loading) to make this easier to digest.
 
 ## Available Scripts
 
