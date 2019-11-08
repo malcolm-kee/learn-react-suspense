@@ -1,19 +1,20 @@
 import React from 'react';
+import { LazyImage } from './image';
 
-export const Pokemon = ({ resource }) => {
+const Pokemon = ({ resource }) => {
   const pokemon = resource.read();
   return (
-    <div>
+    <article className="pokemon-card suspense">
       <h1>{pokemon.name.english}</h1>
       <div>
-        <img src={pokemon.image} alt="" />
+        <LazyImage src={pokemon.image} alt="" className="pokemon-image" />
       </div>
       <ul>
         {pokemon.type.map(t => (
           <li key={t}>{t}</li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 };
 
