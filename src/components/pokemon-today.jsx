@@ -1,10 +1,10 @@
-import React from 'react';
-import { fetchJson } from '../lib/ajax';
+import React from "react";
+import { getPokemonDetails } from "../pokemon.service";
 
 const PokemonToday = ({ id }) => {
   const [pokemon, setPokemon] = React.useState(null);
   React.useEffect(() => {
-    fetchJson(`https://pokemon-json.herokuapp.com/api/pokedex/${id}`).then(setPokemon);
+    getPokemonDetails(id).then(setPokemon);
   }, [id]);
 
   return pokemon ? (
