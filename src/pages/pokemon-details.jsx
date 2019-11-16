@@ -1,36 +1,38 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Header } from '../components/header';
-import { LoadingIndicator } from '../components/loading-indicator';
-import { getAbilities, getPokemonDetails } from '../pokemon.service';
+import { LazyImage } from '../components/image';
+import { pokemonResource } from '../resource/pokemon-resource';
 import './pokemon-details.css';
 
 export const PokemonDetails = () => {
   const { id } = useParams();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [{ details, moves }, setDetails] = React.useState({
-    details: null,
-    moves: [],
-  });
+  const details = pokemonResource.read(id);
 
-  React.useEffect(() => {
-    setIsLoading(true);
-    Promise.all([getPokemonDetails(id), getAbilities(id)])
-      .then(([details, { moves }]) =>
-        setDetails({
-          details,
-          moves,
-        })
-      )
-      .then(() => setIsLoading(false));
-  }, [id]);
+  // const [isLoading, setIsLoading] = React.useState(false);
+  // const [{ details, moves }, setDetails] = React.useState({
+  //   details: null,
+  //   moves: [],
+  // });
+
+  // React.useEffect(() => {
+  //   setIsLoading(true);
+  //   Promise.all([getPokemonDetails(id), getAbilities(id)])
+  //     .then(([details, { moves }]) =>
+  //       setDetails({
+  //         details,
+  //         moves,
+  //       })
+  //     )
+  //     .then(() => setIsLoading(false));
+  // }, [id]);
 
   return (
     <div>
       <Header>
         <Link to={`/pokemon/${Number(id) + 1}`}>Next</Link>
       </Header>
-      {isLoading && <LoadingIndicator />}
+      {/* {isLoading && <LoadingIndicator />} */}
       {details && (
         <div>
           <article className="container pokemon-details">
@@ -38,7 +40,7 @@ export const PokemonDetails = () => {
               <h1>
                 {details.name.english} ({details.name.japanese}/{details.name.chinese})
               </h1>
-              <img src={details.image} alt="" />
+              <LazyImage src={details.image} alt="" />
               <ul>
                 {details.type.map(t => (
                   <li key={t}>
@@ -47,14 +49,14 @@ export const PokemonDetails = () => {
                 ))}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h2>Moves</h2>
               <ul className="move-list">
                 {moves.map(({ move }, index) => (
                   <li key={index}>{move.name}</li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </article>
         </div>
       )}

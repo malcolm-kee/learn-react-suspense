@@ -14,7 +14,8 @@ export const getPokemons = ({ limit = 10, page = 1 } = {}) =>
 export const getPokemonDetails = id =>
   fetchJson(`https://pokemon-json.herokuapp.com/api/pokedex/${id}`);
 
-export const getAbilities = id => pokedex.getPokemonByName(id);
+export const getAbilities = id =>
+  new Promise(fulfill => setTimeout(() => fulfill(pokedex.getPokemonByName(id)), 1000));
 
 /**
  *
