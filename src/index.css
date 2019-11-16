@@ -19,3 +19,8 @@ code {
   max-width: 1200px;
   position: relative;
 }
+
+.equal-cols {
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { imageResource } from '../resource/image-resource';
 import { LazyImage } from './image';
 import { LoadingIndicator } from './loading-indicator';
@@ -14,10 +15,12 @@ const Pokemons = ({ resource }) => {
       <React.SuspenseList revealOrder="forwards" tail="collapsed">
         {pokemons.map(pokemon => (
           <React.Suspense fallback={<LoadingIndicator />}>
-            <article className="pokemon-card" key={pokemon.id}>
-              <h1>{pokemon.name}</h1>
-              <LazyImage src={pokemon.thumbnail} alt="" />
-            </article>
+            <Link to={`/pokemon/${pokemon.id}`}>
+              <article className="pokemon-card" key={pokemon.id}>
+                <h1>{pokemon.name}</h1>
+                <LazyImage src={pokemon.thumbnail} alt="" />
+              </article>
+            </Link>
           </React.Suspense>
         ))}
       </React.SuspenseList>
