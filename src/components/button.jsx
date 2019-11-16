@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './button.module.css';
 
-export const Button = ({ onClick, children, ...buttonProps }) => {
+export const Button = ({ onClick, children, isLoading, ...buttonProps }) => {
   const [startTransition, isPending] = React.useTransition({
     timeoutMs: 2000,
   });
@@ -11,7 +11,7 @@ export const Button = ({ onClick, children, ...buttonProps }) => {
 
   return (
     <button className={styles.btn} onClick={handleClick} {...buttonProps}>
-      {isPending ? 'Loading...' : children}
+      {isPending || isLoading ? 'Loading...' : children}
     </button>
   );
 };

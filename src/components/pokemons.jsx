@@ -11,7 +11,7 @@ const Pokemons = ({ resource }) => {
 
   return (
     <div className="grid">
-      <React.SuspenseList revealOrder="forwards">
+      <React.SuspenseList revealOrder="forwards" tail="collapsed">
         {pokemons.map(pokemon => (
           <React.Suspense fallback={<LoadingIndicator />}>
             <article className="pokemon-card" key={pokemon.id}>

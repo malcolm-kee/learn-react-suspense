@@ -1,29 +1,40 @@
 import React from 'react';
 import './App.css';
 import { Button } from './components/button';
-import {
-  // getPokemonResource,
-  getPokemonsResource,
-} from './components/pokemon.data';
+import { getPokemonsResource } from './components/pokemon.data';
 import { LoadingIndicator } from './components/loading-indicator';
+// import { getPokemons } from './pokemon.service';
 
-// const Pokemon = React.lazy(() => import("./components/pokemon"));
-// const PokemonToday = React.lazy(() => import("./components/pokemon-today"));
+// const PokemonToday = React.lazy(() => import('./components/pokemon-today'));
 const Pokemons = React.lazy(() => import('./components/pokemons'));
 
 function App() {
-  const [pokemonId, setPokemonId] = React.useState(0);
-  // const [pokemonResource, setPokemonResource] = React.useState(null);
+  const [page, setPage] = React.useState(0);
   const [pokemonsRes, setPokemonsRes] = React.useState(null);
   const loadNextPokemon = () => {
-    // setPokemonResource(getPokemonResource(pokemonId + 1));
-    setPokemonId(prevId => prevId + 1);
+    setPage(prevPage => prevPage + 1);
     setPokemonsRes(
       getPokemonsResource({
-        page: pokemonId + 1,
+        page: page + 1,
       })
     );
   };
+
+  // const [isLoading, setIsLoading] = React.useState(false);
+  // const [pokemons, setPokemons] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   if (page) {
+  //     setIsLoading(true);
+  //     getPokemons({
+  //       limit: 30,
+  //       page: page + 10,
+  //     }).then(pokemons => {
+  //       setPokemons(pokemons);
+  //       setIsLoading(false);
+  //     });
+  //   }
+  // }, [page]);
 
   return (
     <div className="App">
@@ -46,12 +57,14 @@ function App() {
               <Pokemons resource={pokemonsRes} />
             </React.Suspense>
           )}
-          {/* <React.Suspense fallback={<span>Loading...</span>}>
-            {pokemonResource && <Pokemon resource={pokemonResource} />}
-          </React.Suspense>
-          <React.Suspense fallback={<span>Loading...</span>}>
-            {pokemonId > 0 && <PokemonToday id={250 - pokemonId} />}
-          </React.Suspense> */}
+          {/* <div className="grid">
+            <React.Suspense fallback={<LoadingIndicator />}>
+              {page && isLoading ? <LoadingIndicator /> : null}
+              {pokemons.map(pokemon => (
+                <PokemonToday pokemon={pokemon} key={pokemon.id} />
+              ))}
+            </React.Suspense>
+          </div> */}
         </div>
       </main>
     </div>
