@@ -11,13 +11,13 @@ export const getPokemons = ({ limit = 10, page = 1 } = {}) =>
     },
   });
 
+const wait = ms => new Promise(fulfill => setTimeout(() => fulfill(), ms));
+
 export const getPokemonDetails = id =>
   fetchJson(`https://pokemon-json.herokuapp.com/api/pokedex/${id}`);
 
 export const getAbilities = id =>
-  new Promise(fulfill =>
-    setTimeout(() => fulfill(pokedex.getPokemonByName(id)), Math.random() * 2000)
-  );
+  wait(Math.random() * 3000).then(() => pokedex.getPokemonByName(id));
 
 /**
  *

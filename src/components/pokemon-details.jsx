@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { pokemonResource } from '../resource/pokemon-resource';
+import { pokemonResource, abilityResource } from '../resource/pokemon-resource';
 import { LazyImage } from './image';
 import './pokemon-details.css';
 
 export const PokemonDetails = ({ id }) => {
   const details = pokemonResource.read(id);
+  // const deferredId = React.useDeferredValue(id, {
+  //   timeoutMs: 2000
+  // })
+  const deferredId = React.useDeferredValue(id, {
+    timeoutMs: 5000,
+  });
+
+  const { moves } = abilityResource.read(deferredId);
 
   // const [isLoading, setIsLoading] = React.useState(false);
   // const [{ details, moves }, setDetails] = React.useState({
@@ -42,14 +50,14 @@ export const PokemonDetails = ({ id }) => {
               ))}
             </ul>
           </div>
-          {/* <div>
-              <h2>Moves</h2>
-              <ul className="move-list">
-                {moves.map(({ move }, index) => (
-                  <li key={index}>{move.name}</li>
-                ))}
-              </ul>
-            </div> */}
+          <div className={deferredId !== id ? 'faded' : undefined}>
+            <h2>Moves</h2>
+            <ul className="move-list">
+              {moves.map(({ move }, index) => (
+                <li key={index}>{move.name}</li>
+              ))}
+            </ul>
+          </div>
         </article>
       </div>
     </div>

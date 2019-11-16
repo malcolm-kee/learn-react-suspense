@@ -24,3 +24,7 @@ code {
   display: flex;
   justify-content: space-around;
 }
+
+.faded {
+  opacity: 0.5;
+}
