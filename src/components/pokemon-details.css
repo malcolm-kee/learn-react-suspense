@@ -1,0 +1,9 @@
+.pokemon-details {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+}
+
+.move-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}

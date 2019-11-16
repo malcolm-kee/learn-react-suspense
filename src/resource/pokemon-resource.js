@@ -5,17 +5,15 @@ const pokemonMap = new Map();
 export const pokemonResource = {
   preload: id => {
     if (!pokemonMap.has(id)) {
-      const data = [null, null, null];
-      const promise = getPokemonDetails(id)
-        .then(details => {
-          data[1] = 'success';
-          data[2] = details;
-        })
-        .catch(err => {
-          data[1] = 'error';
-          data[2] = err;
-        });
-      data[0] = promise;
+      const data = [
+        getPokemonDetails(id)
+          .then(details => {
+            data.push('success', details);
+          })
+          .catch(err => {
+            data.push('error', err);
+          }),
+      ];
       pokemonMap.set(id, data);
     }
   },
@@ -31,18 +29,16 @@ export const pokemonResource = {
       throw promise;
     }
 
-    const data = [null, null, null];
-    const promise = getPokemonDetails(id)
-      .then(details => {
-        data[1] = 'success';
-        data[2] = details;
-      })
-      .catch(err => {
-        data[1] = 'error';
-        data[2] = err;
-      });
-    data[0] = promise;
+    const data = [
+      getPokemonDetails(id)
+        .then(details => {
+          data.push('success', details);
+        })
+        .catch(err => {
+          data.push('error', err);
+        }),
+    ];
     pokemonMap.set(id, data);
-    throw promise;
+    throw data[0];
   },
 };

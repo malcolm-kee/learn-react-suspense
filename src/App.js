@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { LoadingIndicator } from './components/loading-indicator';
-import { PokemonDetails } from './pages/pokemon-details';
+import { PokemonDetailsPage } from './pages/pokemon-details';
 import { PokemonList } from './pages/pokemon-list';
 import { PokemonType } from './pages/pokemon-type';
 
@@ -15,7 +15,7 @@ function App() {
             <PokemonList />
           </Route>
           <Route path="/pokemon/:id">
-            <PokemonDetails />
+            <PokemonDetailsPage />
           </Route>
           <Route path="/type/:name">
             <PokemonType />
