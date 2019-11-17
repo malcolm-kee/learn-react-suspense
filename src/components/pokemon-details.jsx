@@ -83,18 +83,25 @@ const PokemonDetails = ({ id }) => {
 export default PokemonDetails;
 
 const PokemonMoves = ({ pokemonId }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [status, setStatus] = React.useState('idle');
   const [stats, setStats] = React.useState(null);
   React.useEffect(() => {
     if (pokemonId) {
       let isLatest = true;
-      setIsLoading(true);
-      getAbilities(pokemonId).then(result => {
-        if (isLatest) {
-          setStats(result);
-          setIsLoading(false);
-        }
-      });
+      setStatus('loading');
+      getAbilities(pokemonId)
+        .then(result => {
+          if (isLatest) {
+            setStats(result);
+            setStatus('idle');
+          }
+        })
+        .catch(err => {
+          if (isLatest) {
+            setStatus('error');
+            console.error(err);
+          }
+        });
       return () => {
         isLatest = false;
       };
@@ -102,8 +109,9 @@ const PokemonMoves = ({ pokemonId }) => {
   }, [pokemonId]);
 
   return (
-    <div className={isLoading ? 'faded' : undefined}>
+    <div className={status === 'loading' ? 'faded' : undefined}>
       <h2>Moves</h2>
+      {status === 'error' && <p>Something goes wrong.</p>}
       {stats && (
         <ul className={styles.moves}>
           {stats.moves.map(({ move }, index) => (

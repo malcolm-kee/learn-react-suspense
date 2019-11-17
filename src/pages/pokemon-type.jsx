@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Header } from '../components/header';
 import { LoadingIndicator } from '../components/loading-indicator';
 
-const PokemonType = React.lazy(() => import('../components/pokemon-type-today'));
+const PokemonType = React.lazy(() => import('../components/pokemon-type'));
 
 export const PokemonTypePage = () => {
   const { name } = useParams();

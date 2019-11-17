@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../components/button';
 import { Header } from '../components/header';
 import { LoadingIndicator } from '../components/loading-indicator';
-const Pokemons = React.lazy(() => import('../components/pokemons-today'));
+const Pokemons = React.lazy(() => import('../components/pokemons'));
 
 let lastLoadedPage = 1;
 

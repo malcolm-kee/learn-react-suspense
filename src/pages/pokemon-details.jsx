@@ -4,7 +4,7 @@ import { Header } from '../components/header';
 import { LoadingIndicator } from '../components/loading-indicator';
 import { TransitionLink } from '../components/transition-link';
 
-const PokemonDetails = React.lazy(() => import('../components/pokemon-details-today'));
+const PokemonDetails = React.lazy(() => import('../components/pokemon-details'));
 
 export const PokemonDetailsPage = () => {
   const { id } = useParams();
