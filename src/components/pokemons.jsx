@@ -10,7 +10,7 @@ const PokemonsToday = ({ page }) => {
 
   React.useEffect(() => {
     if (page) {
-      let isLatest = true;
+      let isCurrent = true;
 
       setStatus('loading');
       getPokemons({
@@ -18,20 +18,20 @@ const PokemonsToday = ({ page }) => {
         page: page,
       })
         .then(pokemons => {
-          if (isLatest) {
+          if (isCurrent) {
             setPokemons(pokemons);
             setStatus('idle');
           }
         })
         .catch(err => {
-          if (isLatest) {
+          if (isCurrent) {
             setStatus('error');
             console.error(err);
           }
         });
 
       return () => {
-        isLatest = false;
+        isCurrent = false;
       };
     }
   }, [page]);

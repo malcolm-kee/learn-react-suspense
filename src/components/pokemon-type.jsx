@@ -8,25 +8,25 @@ const PokemonType = ({ name }) => {
   const [details, setDetails] = React.useState(null);
 
   React.useEffect(() => {
-    let isLatest = true;
+    let isCurrent = true;
 
     setStatus('loading');
     getType(name)
       .then(typeDetails => {
-        if (isLatest) {
+        if (isCurrent) {
           setDetails(typeDetails);
           setStatus('idle');
         }
       })
       .catch(err => {
-        if (isLatest) {
+        if (isCurrent) {
           setStatus('error');
           console.error(err);
         }
       });
 
     return () => {
-      isLatest = false;
+      isCurrent = false;
     };
   }, [name]);
 

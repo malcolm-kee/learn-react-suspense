@@ -10,24 +10,24 @@ const PokemonDetails = ({ id }) => {
 
   React.useEffect(() => {
     if (id) {
-      let isLatest = true;
+      let isCurrent = true;
       setStatus('loading');
       getPokemonDetails(id)
         .then(result => {
-          if (isLatest) {
+          if (isCurrent) {
             setDetails(result);
             setStatus('idle');
           }
         })
         .catch(err => {
-          if (isLatest) {
+          if (isCurrent) {
             setStatus('error');
             console.error(err);
           }
         });
 
       return () => {
-        isLatest = false;
+        isCurrent = false;
       };
     }
   }, [id]);
@@ -87,23 +87,23 @@ const PokemonMoves = ({ pokemonId }) => {
   const [stats, setStats] = React.useState(null);
   React.useEffect(() => {
     if (pokemonId) {
-      let isLatest = true;
+      let isCurrent = true;
       setStatus('loading');
       getAbilities(pokemonId)
         .then(result => {
-          if (isLatest) {
+          if (isCurrent) {
             setStats(result);
             setStatus('idle');
           }
         })
         .catch(err => {
-          if (isLatest) {
+          if (isCurrent) {
             setStatus('error');
             console.error(err);
           }
         });
       return () => {
-        isLatest = false;
+        isCurrent = false;
       };
     }
   }, [pokemonId]);
