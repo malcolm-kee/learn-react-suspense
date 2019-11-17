@@ -1,18 +1,28 @@
 const DEFAULT_RETRIES = [1000, 3000];
 
-export function fetchWithRetry(url, { retryDelays = DEFAULT_RETRIES, params, data, ...init } = {}) {
+type FetchInit = RequestInit & {
+  params?: Record<string, string | number | boolean>;
+  data?: any;
+  /** delay in millisecond before retry again. Default to [1000, 3000] (wait 1 sec, then 3 secs) */
+  retryDelays?: number[];
+};
+
+export function fetchWithRetry(
+  url: string,
+  { retryDelays = DEFAULT_RETRIES, params, data, ...init }: FetchInit = {}
+): Promise<Response> {
   return new Promise((fulfill, reject) => {
     let attemptCount = -1;
     const requestUrl = url + stringifyParams(params);
 
-    function makeRequest() {
+    function makeRequest(): void {
       attemptCount++;
       const request = fetch(
         requestUrl,
         data
           ? {
               ...init,
-              body: JSON.stringify(data)
+              body: JSON.stringify(data),
             }
           : init
       );
@@ -27,7 +37,7 @@ export function fetchWithRetry(url, { retryDelays = DEFAULT_RETRIES, params, dat
             const error = new Error(
               `fetchWithRetry: No success response after ${attemptCount} retries, give up!`
             );
-            error.response = response;
+            (error as any).response = response;
             reject(error);
           }
         })
@@ -40,12 +50,12 @@ export function fetchWithRetry(url, { retryDelays = DEFAULT_RETRIES, params, dat
         });
     }
 
-    function retryRequest() {
+    function retryRequest(): void {
       const retryDelay = retryDelays[attemptCount];
       window.setTimeout(makeRequest, retryDelay);
     }
 
-    function shouldRetry(attempt) {
+    function shouldRetry(attempt: number) {
       return attempt <= retryDelays.length;
     }
 
@@ -55,7 +65,7 @@ export function fetchWithRetry(url, { retryDelays = DEFAULT_RETRIES, params, dat
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-const stringifyParams = params => {
+const stringifyParams = (params: FetchInit['params']) => {
   if (!params) {
     return '';
   }
@@ -71,52 +81,22 @@ const stringifyParams = params => {
   return `?${results.join('&')}`;
 };
 
-export function fetchJson(url, { headers, ...init } = {}) {
-  const defaultHeader =
+export function fetchJson(url: string, { headers, ...init }: FetchInit = {}) {
+  const defaultHeader: Record<string, string> =
     init.method && init.method !== 'GET'
       ? {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         }
       : {
-          Accept: 'application/json'
+          Accept: 'application/json',
         };
 
   return fetchWithRetry(url, {
     headers: {
       ...defaultHeader,
-      ...headers
+      ...headers,
     },
-    ...init
+    ...init,
   }).then(response => response.json());
 }
-
-export const getFetchResource = (url, init) => {
-  let data = null;
-  let status = 'pending';
-
-  const fetchPromise = fetchJson(url, init)
-    .then(response => {
-      data = response;
-      status = 'done';
-    })
-    .catch(err => {
-      data = err;
-      status = 'error';
-    });
-
-  return {
-    read: () => {
-      switch (status) {
-        case 'pending':
-          throw fetchPromise;
-
-        case 'error':
-          throw data;
-
-        default:
-          return data;
-      }
-    }
-  };
-};
