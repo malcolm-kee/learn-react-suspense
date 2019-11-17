@@ -5,7 +5,7 @@ import { LoadingIndicator } from '../components/loading-indicator';
 
 const PokemonType = React.lazy(() => import('../components/pokemon-type'));
 
-export const PokemonTypePage = () => {
+export const TypePage = () => {
   const { name } = useParams();
 
   return (

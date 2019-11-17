@@ -6,7 +6,7 @@ import { TransitionLink } from '../components/transition-link';
 
 const PokemonDetails = React.lazy(() => import('../components/pokemon-details'));
 
-export const PokemonDetailsPage = () => {
+export const PokemonPage = () => {
   const { id } = useParams();
 
   return (
