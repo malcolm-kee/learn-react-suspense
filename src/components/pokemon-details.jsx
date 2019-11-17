@@ -28,9 +28,10 @@ const PokemonDetails = ({ id }) => {
                   </li>
                 ))}
               </ul>
+              {details.description && <p>{details.description}</p>}
             </div>
             <div>
-              <table>
+              <table className={styles.stats}>
                 <tbody>
                   {Object.entries(details.base).map(([key, value]) => (
                     <tr key={key}>

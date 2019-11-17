@@ -16,6 +16,7 @@ const wait = ms => new Promise(fulfill => setTimeout(() => fulfill(), ms));
 export const getPokemonDetails = id =>
   fetchJson(`https://pokemon-json.herokuapp.com/api/pokedex/${id}`);
 
+// export const getAbilities = id => pokedex.getPokemonByName(id);
 export const getAbilities = id =>
   wait(Math.random() * 2000).then(() => pokedex.getPokemonByName(id));
 
