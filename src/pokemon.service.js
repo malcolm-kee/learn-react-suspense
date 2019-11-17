@@ -17,7 +17,7 @@ export const getPokemonDetails = id =>
   fetchJson(`https://pokemon-json.herokuapp.com/api/pokedex/${id}`);
 
 export const getAbilities = id =>
-  wait(Math.random() * 3000).then(() => pokedex.getPokemonByName(id));
+  wait(Math.random() * 2000).then(() => pokedex.getPokemonByName(id));
 
 /**
  *

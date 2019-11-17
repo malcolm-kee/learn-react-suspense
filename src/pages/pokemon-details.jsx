@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Header } from '../components/header';
 import { LoadingIndicator } from '../components/loading-indicator';
-import { PokemonDetails } from '../components/pokemon-details';
 import { TransitionLink } from '../components/transition-link';
-import './pokemon-details.css';
+
+const PokemonDetails = React.lazy(() => import('../components/pokemon-details-today'));
 
 export const PokemonDetailsPage = () => {
   const { id } = useParams();

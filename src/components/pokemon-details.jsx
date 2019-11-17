@@ -1,65 +1,66 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { pokemonResource, abilityResource } from '../resource/pokemon-resource';
+import { abilityResource, pokemonResource } from '../resource/pokemon-resource';
 import { LazyImage } from './image';
-import './pokemon-details.css';
+import styles from './pokemon-details.module.css';
 
-export const PokemonDetails = ({ id }) => {
+const PokemonDetails = ({ id }) => {
+  abilityResource.preload(id);
   const details = pokemonResource.read(id);
-  // const deferredId = React.useDeferredValue(id, {
-  //   timeoutMs: 2000
-  // })
   const deferredId = React.useDeferredValue(id, {
     timeoutMs: 5000,
   });
 
-  const { moves } = abilityResource.read(deferredId);
-
-  // const [isLoading, setIsLoading] = React.useState(false);
-  // const [{ details, moves }, setDetails] = React.useState({
-  //   details: null,
-  //   moves: [],
-  // });
-
-  // React.useEffect(() => {
-  //   setIsLoading(true);
-  //   Promise.all([getPokemonDetails(id), getAbilities(id)])
-  //     .then(([details, { moves }]) =>
-  //       setDetails({
-  //         details,
-  //         moves,
-  //       })
-  //     )
-  //     .then(() => setIsLoading(false));
-  // }, [id]);
-
   return (
     <div>
       <div>
-        <article className="container pokemon-details">
-          <div>
-            <h1>
-              {details.name.english} ({details.name.japanese}/{details.name.chinese})
-            </h1>
-            <LazyImage src={details.image} alt="" />
-            <ul>
-              {details.type.map(t => (
-                <li key={t}>
-                  <Link to={`/type/${t}`}>{t}</Link>
-                </li>
-              ))}
-            </ul>
+        <article className="container">
+          <div className={styles.details}>
+            <div>
+              <h1>
+                {details.name.english} ({details.name.japanese}/{details.name.chinese})
+              </h1>
+              <LazyImage src={details.image} alt="" />
+              <ul>
+                {details.type.map(t => (
+                  <li key={t}>
+                    <Link to={`/type/${t}`}>{t}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <table>
+                <tbody>
+                  {Object.entries(details.base).map(([key, value]) => (
+                    <tr key={key}>
+                      <td>{key}</td>
+                      <td>{value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className={deferredId !== id ? 'faded' : undefined}>
-            <h2>Moves</h2>
-            <ul className="move-list">
-              {moves.map(({ move }, index) => (
-                <li key={index}>{move.name}</li>
-              ))}
-            </ul>
-          </div>
+          <PokemonMoves pokemonId={deferredId} outdated={deferredId !== id} />
         </article>
       </div>
+    </div>
+  );
+};
+
+export default PokemonDetails;
+
+const PokemonMoves = ({ pokemonId, outdated }) => {
+  const { moves } = abilityResource.read(pokemonId);
+  return (
+    <div className={outdated ? 'faded' : undefined}>
+      <h2>Moves</h2>
+      <ul className={styles.moves}>
+        {moves.map(({ move }, index) => (
+          <li key={index}>{move.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

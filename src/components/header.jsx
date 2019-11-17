@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Header = ({ children }) => (
   <header className="App-header">
-    <h1>Learn React Suspense</h1>
+    <Link to="/">Learn React Suspense</Link>
     <div style={{ padding: 8 }}>{children}</div>
   </header>
 );

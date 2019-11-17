@@ -1,4 +1,4 @@
-export const createResource = getResult => {
+export const createResource = (getResult, { name = 'resource' } = {}) => {
   const cache = new Map();
   const loadData = id => {
     const data = [
@@ -17,6 +17,9 @@ export const createResource = getResult => {
   return {
     preload: id => {
       if (!cache.has(id)) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.debug(`preloading ${id} for ${name}`);
+        }
         loadData(id);
       }
     },

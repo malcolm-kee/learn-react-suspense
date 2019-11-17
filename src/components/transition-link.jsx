@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './transition-link.module.css';
 
-export const TransitionLink = ({ to, children, ...props }) => {
+export const TransitionLink = ({ to, children, isPendingChildren = 'Loading...', ...props }) => {
   const history = useHistory();
   const [startTransition, isPending] = React.useTransition({
     timeoutMs: 2000,
@@ -18,7 +18,7 @@ export const TransitionLink = ({ to, children, ...props }) => {
       className={styles.a}
       {...props}
     >
-      {isPending ? 'Loading...' : children}
+      {isPending ? isPendingChildren : children}
     </a>
   );
 };

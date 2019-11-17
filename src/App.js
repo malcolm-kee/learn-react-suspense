@@ -4,7 +4,7 @@ import './App.css';
 import { LoadingIndicator } from './components/loading-indicator';
 import { PokemonDetailsPage } from './pages/pokemon-details';
 import { PokemonList } from './pages/pokemon-list';
-import { PokemonType } from './pages/pokemon-type';
+import { PokemonTypePage } from './pages/pokemon-type';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             <PokemonDetailsPage />
           </Route>
           <Route path="/type/:name">
-            <PokemonType />
+            <PokemonTypePage />
           </Route>
         </Switch>
       </React.Suspense>
