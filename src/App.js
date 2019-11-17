@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ErrorBoundary } from './components/error-boundary';
 import { LoadingIndicator } from './components/loading-indicator';
-import { PokemonDetailsPage } from './pages/pokemon-details';
-import { PokemonList } from './pages/pokemon-list';
-import { PokemonTypePage } from './pages/pokemon-type';
+import { HomePage } from './pages/home-page';
+import { PokemonPage } from './pages/pokemon-page';
+import { TypePage } from './pages/type-page';
 
 const App = () => (
   <BrowserRouter>
@@ -13,13 +13,13 @@ const App = () => (
       <React.Suspense fallback={<LoadingIndicator />}>
         <Switch>
           <Route path="/" exact>
-            <PokemonList />
+            <HomePage />
           </Route>
           <Route path="/pokemon/:id">
-            <PokemonDetailsPage />
+            <PokemonPage />
           </Route>
           <Route path="/type/:name">
-            <PokemonTypePage />
+            <TypePage />
           </Route>
         </Switch>
       </React.Suspense>

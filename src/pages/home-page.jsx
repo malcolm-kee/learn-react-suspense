@@ -6,7 +6,7 @@ const Pokemons = React.lazy(() => import('../components/pokemons'));
 
 let lastLoadedPage = 1;
 
-export function PokemonList() {
+export function HomePage() {
   const [page, setPage] = React.useState(lastLoadedPage);
   const loadNext = () => {
     setPage(prevPage => prevPage + 1);
