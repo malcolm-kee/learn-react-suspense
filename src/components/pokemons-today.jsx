@@ -5,25 +5,46 @@ import { LoadingIndicator } from './loading-indicator';
 import styles from './pokemons.module.css';
 
 const PokemonsToday = ({ page }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [status, setStatus] = React.useState('idle');
   const [pokemons, setPokemons] = React.useState([]);
 
   React.useEffect(() => {
     if (page) {
-      setIsLoading(true);
+      let isLatest = true;
+
+      setStatus('loading');
       getPokemons({
         limit: 20,
         page: page,
-      }).then(pokemons => {
-        setPokemons(pokemons);
-        setIsLoading(false);
-      });
+      })
+        .then(pokemons => {
+          if (isLatest) {
+            setPokemons(pokemons);
+            setStatus('idle');
+          }
+        })
+        .catch(err => {
+          if (isLatest) {
+            setStatus('error');
+            console.error(err);
+          }
+        });
+
+      return () => {
+        isLatest = false;
+      };
     }
   }, [page]);
 
   return (
     <div className={styles.grid}>
-      {isLoading && <LoadingIndicator />}
+      {status === 'loading' && <LoadingIndicator />}
+      {status === 'error' && (
+        <div>
+          <h1>Sorry, something goes wrong.</h1>
+          <p>Try again later.</p>
+        </div>
+      )}
       {pokemons.map(pokemon => (
         <Link to={`/pokemon/${pokemon.id}`} className={styles.link} key={pokemon.id}>
           <article className={styles.card}>

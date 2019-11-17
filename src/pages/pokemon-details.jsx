@@ -13,14 +13,11 @@ export const PokemonDetailsPage = () => {
     <div>
       <Header />
       <TransitionLink
+        className="floating-btn"
         style={{
           position: 'fixed',
-          display: 'block',
-          padding: 8,
           right: 32,
           top: 8,
-          zIndex: 1,
-          backgroundColor: '#efefef',
         }}
         to={`/pokemon/${Number(id) + 1}`}
       >
@@ -28,14 +25,11 @@ export const PokemonDetailsPage = () => {
       </TransitionLink>
       {id !== '1' && (
         <TransitionLink
+          className="floating-btn"
           style={{
             position: 'fixed',
-            display: 'block',
-            padding: 8,
             left: 32,
             top: 8,
-            zIndex: 1,
-            backgroundColor: '#efefef',
           }}
           to={`/pokemon/${Number(id) - 1}`}
         >

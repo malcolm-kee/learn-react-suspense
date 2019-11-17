@@ -5,19 +5,26 @@ import { LoadingIndicator } from './loading-indicator';
 import styles from './pokemon-details.module.css';
 
 const PokemonDetails = ({ id }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [status, setStatus] = React.useState('idle');
   const [details, setDetails] = React.useState(null);
 
   React.useEffect(() => {
     if (id) {
       let isLatest = true;
-      setIsLoading(true);
-      getPokemonDetails(id).then(result => {
-        if (isLatest) {
-          setDetails(result);
-          setIsLoading(false);
-        }
-      });
+      setStatus('loading');
+      getPokemonDetails(id)
+        .then(result => {
+          if (isLatest) {
+            setDetails(result);
+            setStatus('idle');
+          }
+        })
+        .catch(err => {
+          if (isLatest) {
+            setStatus('error');
+            console.error(err);
+          }
+        });
 
       return () => {
         isLatest = false;
@@ -29,7 +36,13 @@ const PokemonDetails = ({ id }) => {
     <div>
       <div>
         <article className="container">
-          {isLoading && <LoadingIndicator />}
+          {status === 'loading' && <LoadingIndicator />}
+          {status === 'error' && (
+            <div>
+              <h1>Sorry, something goes wrong.</h1>
+              <p>Page cannot be loaded at the moment. Try again later.</p>
+            </div>
+          )}
           {details && (
             <div className={styles.details}>
               <div>

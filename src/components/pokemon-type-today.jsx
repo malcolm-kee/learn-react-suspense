@@ -4,21 +4,37 @@ import { getType } from '../pokemon.service';
 import { LoadingIndicator } from './loading-indicator';
 
 const PokemonType = ({ name }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [status, setStatus] = React.useState('idle');
   const [details, setDetails] = React.useState(null);
 
   React.useEffect(() => {
-    setIsLoading(true);
-    getType(name).then(typeDetails => {
-      setDetails(typeDetails);
-      setIsLoading(false);
-    });
+    let isLatest = true;
+
+    setStatus('loading');
+    getType(name)
+      .then(typeDetails => {
+        if (isLatest) {
+          setDetails(typeDetails);
+          setStatus('idle');
+        }
+      })
+      .catch(err => {
+        if (isLatest) {
+          setStatus('error');
+          console.error(err);
+        }
+      });
+
+    return () => {
+      isLatest = false;
+    };
   }, [name]);
 
   return (
     <div className="container">
       <h1>{name}</h1>
-      {isLoading && <LoadingIndicator />}
+      {status === 'loading' && <LoadingIndicator />}
+      {status === 'error' && <p>Something goes wrong. Page cannot be loaded at the moment.</p>}
       {details && (
         <div className="equal-cols">
           <div>

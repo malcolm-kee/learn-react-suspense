@@ -12,7 +12,9 @@ export const TransitionLink = ({ to, children, isPendingChildren = 'Loading...',
     <a
       onClick={ev => {
         ev.preventDefault();
-        startTransition(() => history.push(to));
+        if (!isPending) {
+          startTransition(() => history.push(to));
+        }
       }}
       href={to}
       className={styles.a}
