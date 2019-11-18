@@ -20,7 +20,7 @@ const PokemonDetails = ({ id }) => {
               <h1>
                 {details.name.english} ({details.name.japanese}/{details.name.chinese})
               </h1>
-              <EagerImage src={details.image} alt="" />
+              <EagerImage src={details.image} alt="" className={styles.img} />
               <ul>
                 {details.type.map(t => (
                   <li key={t}>
