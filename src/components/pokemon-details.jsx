@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { getAbilities, getPokemonDetails } from '../pokemon.service';
 import { LoadingIndicator } from './loading-indicator';
 import styles from './pokemon-details.module.css';
+import { Link } from './route-components';
 
 const PokemonDetails = ({ id }) => {
   const [status, setStatus] = React.useState('idle');

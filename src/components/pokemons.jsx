@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { getPokemons } from '../pokemon.service';
 import { LoadingIndicator } from './loading-indicator';
 import styles from './pokemons.module.css';
+import { Link } from './route-components';
 
 const PokemonsToday = ({ page }) => {
   const [status, setStatus] = React.useState('idle');

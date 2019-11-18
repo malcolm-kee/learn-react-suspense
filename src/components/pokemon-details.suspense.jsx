@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { abilityResource, pokemonResource } from '../resource/pokemon-resource';
 import { EagerImage } from './image';
 import styles from './pokemon-details.module.css';
+import { Link } from './route-components';
 
 const PokemonDetails = ({ id }) => {
   abilityResource.preload(id);

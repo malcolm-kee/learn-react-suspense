@@ -1,14 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ErrorBoundary } from './components/error-boundary';
+import { Header } from './components/header';
 import { LoadingIndicator } from './components/loading-indicator';
+import { Route, Router, Switch } from './components/route-components';
 import { HomePage } from './pages/home-page';
 import { PokemonPage } from './pages/pokemon-page';
 import { TypePage } from './pages/type-page';
 
 const App = () => (
-  <BrowserRouter>
+  <Router>
+    <Header />
     <ErrorBoundary>
       <React.Suspense fallback={<LoadingIndicator />}>
         <Switch>
@@ -24,7 +26,7 @@ const App = () => (
         </Switch>
       </React.Suspense>
     </ErrorBoundary>
-  </BrowserRouter>
+  </Router>
 );
 
 export default App;

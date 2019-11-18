@@ -1,19 +1,14 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Header } from '../components/header';
-import { LoadingIndicator } from '../components/loading-indicator';
+import { useParams } from '../components/route-components';
 
-const PokemonType = React.lazy(() => import('../components/pokemon-type'));
+const PokemonType = React.lazy(() => import('../components/pokemon-type.suspense'));
 
 export const TypePage = () => {
   const { name } = useParams();
 
   return (
     <div>
-      <Header />
-      <React.Suspense fallback={<LoadingIndicator />}>
-        <PokemonType name={name} />
-      </React.Suspense>
+      <PokemonType name={name} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { pokemonTypeResource } from '../resource/pokemon-resource';
+import { Link } from './route-components';
 
 const PokemonType = ({ name }) => {
   const details = pokemonTypeResource.read(name);
