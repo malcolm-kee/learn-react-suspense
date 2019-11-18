@@ -48,7 +48,9 @@ const PokemonsToday = ({ page }) => {
       {pokemons.map(pokemon => (
         <Link to={`/pokemon/${pokemon.id}`} className={styles.link} key={pokemon.id}>
           <article className={styles.card}>
-            <h1>{pokemon.name}</h1>
+            <h1>
+              #{pokemon.id}: {pokemon.name}
+            </h1>
             <img src={pokemon.thumbnail} alt="" />
           </article>
         </Link>

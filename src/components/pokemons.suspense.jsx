@@ -21,7 +21,9 @@ const Pokemons = ({ page }) => {
           <React.Suspense fallback={<LoadingIndicator />}>
             <Link to={`/pokemon/${pokemon.id}`} className={styles.link} key={pokemon.id}>
               <article className={styles.card}>
-                <h1>{pokemon.name}</h1>
+                <h1>
+                  #{pokemon.id}: {pokemon.name}
+                </h1>
                 <LazyImage src={pokemon.thumbnail} alt="" />
               </article>
             </Link>
