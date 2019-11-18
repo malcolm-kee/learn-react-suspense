@@ -2,29 +2,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { imageResource } from '../resource/image-resource';
 import { pokemonPageResource } from '../resource/pokemon-resource';
-import { LazyImage } from './image';
-import { LoadingIndicator } from './loading-indicator';
+import { EagerImage } from './image';
+import { PokemonCardSkeleton } from './pokemon-card-skeleton';
 import styles from './pokemons.module.css';
 
 const Pokemons = ({ page }) => {
   const pokemons = pokemonPageResource.read(page);
-  React.useEffect(() => {
-    pokemons.forEach(pokemon => {
-      imageResource.preload(pokemon.thumbnail);
-    });
-  }, [pokemons]);
+
+  pokemons.forEach(pokemon => {
+    imageResource.preload(pokemon.thumbnail);
+  });
 
   return (
     <div className={styles.grid}>
-      <React.SuspenseList revealOrder="forwards" tail="collapsed">
+      <React.SuspenseList revealOrder="forwards">
         {pokemons.map(pokemon => (
-          <React.Suspense fallback={<LoadingIndicator />}>
-            <Link to={`/pokemon/${pokemon.id}`} className={styles.link} key={pokemon.id}>
+          <React.Suspense fallback={<PokemonCardSkeleton />} key={pokemon.id}>
+            <Link to={`/pokemon/${pokemon.id}`} className={styles.link}>
               <article className={styles.card}>
                 <h1>
                   #{pokemon.id}: {pokemon.name}
                 </h1>
-                <LazyImage src={pokemon.thumbnail} alt="" />
+                <EagerImage src={pokemon.thumbnail} alt="" />
               </article>
             </Link>
           </React.Suspense>

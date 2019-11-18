@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { abilityResource, pokemonResource } from '../resource/pokemon-resource';
-import { LazyImage } from './image';
+import { EagerImage } from './image';
 import styles from './pokemon-details.module.css';
 
 const PokemonDetails = ({ id }) => {
@@ -20,7 +20,7 @@ const PokemonDetails = ({ id }) => {
               <h1>
                 {details.name.english} ({details.name.japanese}/{details.name.chinese})
               </h1>
-              <LazyImage src={details.image} alt="" />
+              <EagerImage src={details.image} alt="" />
               <ul>
                 {details.type.map(t => (
                   <li key={t}>
