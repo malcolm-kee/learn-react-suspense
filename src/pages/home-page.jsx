@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from '../components/button';
-import { Header } from '../components/header';
-import { LoadingIndicator } from '../components/loading-indicator';
-const Pokemons = React.lazy(() => import('../components/pokemons'));
+import { Toolbar } from '../components/toolbar';
+const Pokemons = React.lazy(() => import('../components/pokemons.suspense'));
 
 let lastLoadedPage = 1;
 
@@ -21,15 +20,13 @@ export function HomePage() {
 
   return (
     <div className="App">
-      <Header>
+      <Toolbar>
         {page !== 1 && <Button onClick={loadPrev}>Previous</Button>}
         <Button onClick={loadNext}>Next</Button>
-      </Header>
+      </Toolbar>
       <main>
         <div className="container">
-          <React.Suspense fallback={<LoadingIndicator />}>
-            <Pokemons page={page} />
-          </React.Suspense>
+          <Pokemons page={page} />
         </div>
       </main>
     </div>

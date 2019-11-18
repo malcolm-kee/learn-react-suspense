@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
+    "path-to-regexp": "^5.0.0",
     "pokeapi-js-wrapper": "^1.1.2",
     "react": "^0.0.0-experimental-b53ea6ca0",
     "react-dom": "^0.0.0-experimental-b53ea6ca0",

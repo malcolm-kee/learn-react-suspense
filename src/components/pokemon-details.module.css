@@ -4,17 +4,35 @@
 }
 
 .details {
-  display: grid;
   padding: 0 16px;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  grid-gap: 16px;
 }
 
 .stats {
   margin: 16px auto;
-  font-size: 2rem;
 }
 
 .stats td {
-  padding: 8px;
+  padding: 4px;
+}
+
+.img {
+  max-width: 100%;
+}
+
+@media (min-width: 700px) {
+  .details {
+    display: grid;
+    grid-template-columns: 470px 1fr;
+    grid-gap: 16px;
+    align-items: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .stats {
+    font-size: 2rem;
+  }
+  .stats td {
+    padding: 8px;
+  }
 }

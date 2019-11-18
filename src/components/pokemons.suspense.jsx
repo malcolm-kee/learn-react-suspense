@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { imageResource } from '../resource/image-resource';
 import { pokemonPageResource } from '../resource/pokemon-resource';
 import { EagerImage } from './image';
 import { PokemonCardSkeleton } from './pokemon-card-skeleton';
 import styles from './pokemons.module.css';
+import { Link } from './route-components';
 
 const Pokemons = ({ page }) => {
   const pokemons = pokemonPageResource.read(page);
@@ -18,7 +18,11 @@ const Pokemons = ({ page }) => {
       <React.SuspenseList revealOrder="forwards">
         {pokemons.map(pokemon => (
           <React.Suspense fallback={<PokemonCardSkeleton />} key={pokemon.id}>
-            <Link to={`/pokemon/${pokemon.id}`} className={styles.link}>
+            <Link
+              to={`/pokemon/${pokemon.id}`}
+              className={styles.link}
+              transitioningClass={styles.linkSelected}
+            >
               <article className={styles.card}>
                 <h1>
                   #{pokemon.id}: {pokemon.name}

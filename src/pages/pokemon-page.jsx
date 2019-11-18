@@ -1,44 +1,41 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Header } from '../components/header';
-import { LoadingIndicator } from '../components/loading-indicator';
-import { TransitionLink } from '../components/transition-link';
+import { Link, useParams } from '../components/route-components';
+import styles from './pokemon-page.module.css';
 
-const PokemonDetails = React.lazy(() => import('../components/pokemon-details'));
+const PokemonDetails = React.lazy(() => import('../components/pokemon-details.suspense'));
 
 export const PokemonPage = () => {
   const { id } = useParams();
 
   return (
     <div>
-      <Header />
-      <TransitionLink
+      <Link
+        to={`/pokemon/${Number(id) + 1}`}
         className="floating-btn"
         style={{
           position: 'fixed',
           right: 32,
           top: 8,
         }}
-        to={`/pokemon/${Number(id) + 1}`}
+        transitioningClass={styles.busyBtn}
       >
-        Next
-      </TransitionLink>
+        >
+      </Link>
       {id !== '1' && (
-        <TransitionLink
+        <Link
+          to={`/pokemon/${Number(id) - 1}`}
           className="floating-btn"
           style={{
             position: 'fixed',
             left: 32,
             top: 8,
           }}
-          to={`/pokemon/${Number(id) - 1}`}
+          transitioningClass={styles.busyBtn}
         >
-          Previous
-        </TransitionLink>
+          {'<'}
+        </Link>
       )}
-      <React.Suspense fallback={<LoadingIndicator />}>
-        <PokemonDetails id={id} />
-      </React.Suspense>
+      <PokemonDetails id={id} />
     </div>
   );
 };

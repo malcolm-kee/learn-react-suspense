@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { getType } from '../pokemon.service';
 import { LoadingIndicator } from './loading-indicator';
+import { Link } from './route-components';
 
 const PokemonType = ({ name }) => {
   const [status, setStatus] = React.useState('idle');

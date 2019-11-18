@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { abilityResource, pokemonResource } from '../resource/pokemon-resource';
 import { EagerImage } from './image';
 import styles from './pokemon-details.module.css';
+import { Link } from './route-components';
 
 const PokemonDetails = ({ id }) => {
   abilityResource.preload(id);
@@ -20,7 +20,7 @@ const PokemonDetails = ({ id }) => {
               <h1>
                 {details.name.english} ({details.name.japanese}/{details.name.chinese})
               </h1>
-              <EagerImage src={details.image} alt="" />
+              <EagerImage src={details.image} alt="" className={styles.img} />
               <ul>
                 {details.type.map(t => (
                   <li key={t}>

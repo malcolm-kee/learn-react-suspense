@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { getAbilities, getPokemonDetails } from '../pokemon.service';
 import { LoadingIndicator } from './loading-indicator';
 import styles from './pokemon-details.module.css';
+import { Link } from './route-components';
 
 const PokemonDetails = ({ id }) => {
   const [status, setStatus] = React.useState('idle');
@@ -49,7 +49,7 @@ const PokemonDetails = ({ id }) => {
                 <h1>
                   {details.name.english} ({details.name.japanese}/{details.name.chinese})
                 </h1>
-                <img src={details.image} alt="" />
+                <img src={details.image} alt="" className={styles.img} />
                 <ul>
                   {details.type.map(t => (
                     <li key={t}>
