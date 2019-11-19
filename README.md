@@ -1,23 +1,65 @@
 # react-suspense
 
-This is a sample application using React Suspense with REST API.
+What it means to you as a product developer.
 
-I try to reduce the concept involved (no routing) to make this easier to digest.
+---
 
-The approach is to show you an existing code, and how I refactor it to load data with React Suspense, while showing you the benefits of using React Suspense.
+## Disclaimer: This is not production ready.
 
-## A typical fetch "on mount" refactoring
+React Concurrent is currently experimental (you need to install `react@experimental` to enable it), and the API may changes.
+
+The goal of this talk is to give you sneek peek to the next big release of React.
+
+---
+
+## Key Takeaways for Product Developer
+
+- new convention for data fetching
+- potential UI improvements
+- it is faster
+
+---
+
+## New Convention for Data Fetching
+
+### current approach: fetch "on mount"
 
 - fetch data when componentDidMount or useEffect
 - use state to track if data is loaded successfully
 
-## Suspense
+### suspense approach: create a resource and read it
 
-- enable it first by installing react@experimental and react-dom@experimental
-- instead of making API calls, we read data from resource
-- resource is just a cache of the api calls we make. When a data is not ready when a component is trying to read it, the resource will throw a `Promise`.
+- a resource is a cache that returns a data when it is ready, else it will tell React when it is not ready.
+- when writing component that use the data, we don't need to worry about whether the data is ready. Just treat is as ready.
+- `Suspense` will be used to handle the loading state while `ErrorBoundary` will be used to handle error state.
 
-## Takeaways
+---
 
-- using resource, the component no longer manage loading states. In the component we just treat data as if it is already ready. If it's not ready, React will handle it.
-- suspense allows us to coordinate resource loading, not just data, but any resource that may takes some time to load, e.g. image.
+## Potential UI Improvement
+
+- React Concurrent mode allows us to have the following interaction when you click a link/ button to reveal new content:
+
+  1. the button/link will respond according to your click, e.g. a little loading indicator. In the meantime, the data fetching will be started.
+  1. the new page/section will only be revealed only when the data fetching completed. So your user no longer needs to see the empty big loading spinner again.
+  1. In the case where the data fetching is ready slow, we will show the empty big loading spinner after some delay.
+
+  In short, we have 3 states: responsive, busy, final.
+
+- In addition, another UI improvements that React Concurrent allows is to make sure dynamic data always load in a certain order. This avoid the content jump while more data is coming in, a common problem in many sites today.
+
+- However, achieving those improvements need additional works as developer. You may not want to spend the effort on those, just know that React allows you to do them when you want to.
+
+---
+
+## Blazing Faster 🔥🔥🔥
+
+- It will be faster (for whatever reason).
+- In addition of `React.memo`, `React.useMemo`, now we have `React.useDeferredValue`.
+
+---
+
+## Recap
+
+- new convention for data fetching
+- potential UI improvements
+- it is faster
