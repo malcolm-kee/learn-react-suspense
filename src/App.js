@@ -14,14 +14,14 @@ const App = () => (
     <ErrorBoundary>
       <React.Suspense fallback={<LoadingIndicator />}>
         <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
           <Route path="/pokemon/:id">
             <PokemonPage />
           </Route>
           <Route path="/type/:name">
             <TypePage />
+          </Route>
+          <Route path="/" exact>
+            <HomePage />
           </Route>
         </Switch>
       </React.Suspense>
