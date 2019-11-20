@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../components/button';
+import Pokemons from '../components/pokemons';
 import { Toolbar } from '../components/toolbar';
-const Pokemons = React.lazy(() => import('../components/pokemons'));
 
 let lastLoadedPage = 1;
 

@@ -1,10 +1,7 @@
 import React from 'react';
+import PokemonDetails from '../components/pokemon-details';
 import { Link, useParams } from '../components/route-components';
 import styles from './pokemon-page.module.css';
-
-const PokemonDetails = React.lazy(() =>
-  import('../components/pokemon-details')
-);
 
 export const PokemonPage = () => {
   const { id } = useParams();

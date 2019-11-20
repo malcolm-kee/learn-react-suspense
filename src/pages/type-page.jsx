@@ -1,7 +1,6 @@
 import React from 'react';
+import PokemonType from '../components/pokemon-type';
 import { useParams } from '../components/route-components';
-
-const PokemonType = React.lazy(() => import('../components/pokemon-type'));
 
 export const TypePage = () => {
   const { name } = useParams();
