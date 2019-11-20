@@ -20,6 +20,14 @@ The goal of this talk is to give you sneek peek to the next big release of React
 
 ---
 
+## Prerequisite: ErrorBoundary and Suspense component
+
+- ErrorBoundary is a class that extends `React.Component` that implements `componentDidCatch` method. It is used to catch any error in the rendering of the subtree.
+
+- Suspense is to allow you to create a boundary for loading of your components that are loaded with dynamic `import` wrapped with `React.lazy`.
+
+---
+
 ## New Convention for Data Fetching
 
 ### current approach: fetch "on mount"
